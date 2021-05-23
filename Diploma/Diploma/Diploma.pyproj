@@ -1,0 +1,65 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>60cd10a1-eeeb-42c7-ae34-3d5ce36add58</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Diploma.py</StartupFile>
+    <SearchPath>..\CommonHelper</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Diploma</Name>
+    <RootNamespace>Diploma</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Classification\SoftmaxSaberfightingActions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classification\SaberfightingTestModels.py" />
+    <Compile Include="Classification\TripletSaberfightingActions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Estimation\Estimator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Diploma.py" />
+    <Compile Include="Estimation\util.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelperData\CreateDatasetMapfile.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HelperData\GetSkeletons.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\Dialog.py" />
+    <Compile Include="Interface\ExitWindow.py" />
+    <Compile Include="Interface\Interface.py" />
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classification\" />
+    <Folder Include="Estimation\" />
+    <Folder Include="HelperData\" />
+    <Folder Include="Interface\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
