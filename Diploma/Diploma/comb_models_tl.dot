@@ -1,0 +1,816 @@
+digraph network_graph {
+rankdir=TB;
+node [fillcolor=lightgray, fixedsize=false, fontsize=12, height=0.85, shape=rectangle, style=filled, width=0.85];
+edge [fontsize=10];
+Splice5432 [fixedsize=false, fontsize=12, height=0.6, label="Splice", penwidth=4, shape=box, width=0.6];
+Splice5432 [fixedsize=false, fontsize=12, height=0.6, label="Splice", penwidth=4, shape=box, width=0.6];
+Block4070 -> Splice5432  [label="bn_out\n[#,*](2,)"];
+Block4659 -> Splice5432  [label="bn_out\n[#,*](2,)"];
+Block5248 -> Splice5432  [label="bn_out\n[#,*](2,)"];
+Splice5432_Output_0 [fixedsize=true, height=1, label="\n[#,*](6,)", penwidth=4, shape=egg, width=1.3];
+Splice5432 -> Splice5432_Output_0  [label="[#,*](6,)"];
+Block4070 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Block4070 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Block4070 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Parameter2743 [height=0.6, label="scale\n(2,)", shape=box, width=1];
+Parameter2743 -> Block4070  [label="scale\n(2,)"];
+Parameter2744 [height=0.6, label="bias\n(2,)", shape=box, width=1];
+Parameter2744 -> Block4070  [label="bias\n(2,)"];
+Block4058 -> Block4070  [label="dense_out\n[#,*](2,)"];
+Block4058 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Block4058 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Block4058 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Parameter2529 [height=0.6, label="W\n(256, 2)", shape=box, width=1];
+Parameter2529 -> Block4058  [label="W\n(256, 2)"];
+Parameter2530 [height=0.6, label="b\n(2,)", shape=box, width=1];
+Parameter2530 -> Block4058  [label="b\n(2,)"];
+Block4042 -> Block4058  [label="Block4042_Output_0\n[#,*](256,)"];
+Block4042 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block4042 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block4042 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block4030 -> Block4042  [label="Block4030_Output_0\n[#,*](256,)"];
+Block4030 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Block4030 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Block4030 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Parameter2139 [height=0.6, label="W\n(120, 256)", shape=box, width=1];
+Parameter2139 -> Block4030  [label="W\n(120, 256)"];
+Parameter2140 [height=0.6, label="b\n(256,)", shape=box, width=1];
+Parameter2140 -> Block4030  [label="b\n(256,)"];
+Block3995 -> Block4030  [label="Block3995_Output_0\n[#,*](120,)"];
+Parameter1445 [height=0.6, label="b\n(480,)", shape=box, width=1];
+Parameter1445 -> Block3995  [label="b\n(480,)"];
+Parameter1446 [height=0.6, label="W\n(1, 480)", shape=box, width=1];
+Parameter1446 -> Block3995  [label="W\n(1, 480)"];
+Parameter1447 [height=0.6, label="H\n(120, 480)", shape=box, width=1];
+Parameter1447 -> Block3995  [label="H\n(120, 480)"];
+PastValue3670 -> Block3995  [label="PastValue3670_Output_0\n[#,*](120,)"];
+PastValue3673 -> Block3995  [label="PastValue3673_Output_0\n[#,*](120,)"];
+Block3931 -> Block3995  [label="dense_in\n[#,*](1,)"];
+PastValue3670 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue3670 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue3670 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+Block3995 -> PastValue3670  [label="Block3995_Output_0\n[#,*](120,)"];
+Constant1536 [color=white, fillcolor=white, height=0.3, label="[0.]", shape=box, width=0.4];
+Constant1536 -> PastValue3670  [label="Constant1536\n(1,)"];
+PastValue3673 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue3673 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue3673 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+Block3995 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block3995 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block3995 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block3995 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block3995 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block3995 -> PastValue3673  [label="Block3995_Output_1\n[#,*](120,)"];
+Constant1536 [color=white, fillcolor=white, height=0.3, label="[0.]", shape=box, width=0.4];
+Constant1536 -> PastValue3673  [label="Constant1536\n(1,)"];
+Block3931 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Block3931 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Block3931 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Parameter1300 [height=0.6, label="W\n(256, 4, 4, 1)", shape=box, width=1];
+Parameter1300 -> Block3931  [label="W\n(256, 4, 4, 1)"];
+Parameter1301 [height=0.6, label="b\n(1,)", shape=box, width=1];
+Parameter1301 -> Block3931  [label="b\n(1,)"];
+Block3918 -> Block3931  [label="Block3918_Output_0\n[#,*](256, 4, 4)"];
+Block3918 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block3918 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block3918 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Tanh3910 -> Block3918  [label="Tanh3910_Output_0\n[#,*](256, 5, 5)"];
+Tanh3910 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Tanh3910 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Tanh3910 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Block3906 -> Tanh3910  [label="Block3906_Output_0\n[#,*](256, 5, 5)"];
+Block3906 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Block3906 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Block3906 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Parameter1039 [height=0.6, label="scale\n(256,)", shape=box, width=1];
+Parameter1039 -> Block3906  [label="scale\n(256,)"];
+Parameter1040 [height=0.6, label="bias\n(256,)", shape=box, width=1];
+Parameter1040 -> Block3906  [label="bias\n(256,)"];
+Block3895 -> Block3906  [label="Block3895_Output_0\n[#,*](256, 5, 5)"];
+Block3895 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block3895 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block3895 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter908 [height=0.6, label="W\n(256, 128, 3, 3)", shape=box, width=1];
+Parameter908 -> Block3895  [label="W\n(256, 128, 3, 3)"];
+Parameter909 [height=0.6, label="b\n(256, 1, 1)", shape=box, width=1];
+Parameter909 -> Block3895  [label="b\n(256, 1, 1)"];
+Block3882 -> Block3895  [label="Block3882_Output_0\n[#,*](128, 5, 5)"];
+Block3882 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block3882 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block3882 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+ReLU3874 -> Block3882  [label="ReLU3874_Output_0\n[#,*](128, 6, 6)"];
+ReLU3874 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3874 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3874 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3869 -> ReLU3874  [label="Block3869_Output_0\n[#,*](128, 6, 6)"];
+Block3869 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block3869 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block3869 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter671 [height=0.6, label="W\n(128, 64, 3, 3)", shape=box, width=1];
+Parameter671 -> Block3869  [label="W\n(128, 64, 3, 3)"];
+Parameter672 [height=0.6, label="b\n(128, 1, 1)", shape=box, width=1];
+Parameter672 -> Block3869  [label="b\n(128, 1, 1)"];
+ReLU3858 -> Block3869  [label="ReLU3858_Output_0\n[#,*](64, 6, 6)"];
+ReLU3858 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3858 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3858 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3853 -> ReLU3858  [label="Block3853_Output_0\n[#,*](64, 6, 6)"];
+Block3853 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block3853 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block3853 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter555 [height=0.6, label="W\n(64, 512, 3, 3)", shape=box, width=1];
+Parameter555 -> Block3853  [label="W\n(64, 512, 3, 3)"];
+Parameter556 [height=0.6, label="b\n(64, 1, 1)", shape=box, width=1];
+Parameter556 -> Block3853  [label="b\n(64, 1, 1)"];
+Pooling3842 -> Block3853  [label="pool4\n[#,*](512, 6, 6)"];
+Pooling3842 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3842 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3842 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU3840 -> Pooling3842  [label="relu4_3\n[#,*](512, 12, 12)"];
+ReLU3840 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3840 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3840 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3835 -> ReLU3840  [label="conv4_3\n[#,*](512, 12, 12)"];
+Block3835 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Block3835 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Block3835 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Parameter341 [height=0.6, label="conv4_3.W\n(512, 512, 3, 3)", shape=box, width=1];
+Parameter341 -> Block3835  [label="conv4_3.W\n(512, 512, 3, 3)"];
+Parameter342 [height=0.6, label="conv4_3.b\n(512, 1, 1)", shape=box, width=1];
+Parameter342 -> Block3835  [label="conv4_3.b\n(512, 1, 1)"];
+ReLU3824 -> Block3835  [label="relu4_2\n[#,*](512, 12, 12)"];
+ReLU3824 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3824 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3824 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3819 -> ReLU3824  [label="conv4_2\n[#,*](512, 12, 12)"];
+Block3819 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Block3819 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Block3819 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Parameter343 [height=0.6, label="conv4_2.W\n(512, 512, 3, 3)", shape=box, width=1];
+Parameter343 -> Block3819  [label="conv4_2.W\n(512, 512, 3, 3)"];
+Parameter344 [height=0.6, label="conv4_2.b\n(512, 1, 1)", shape=box, width=1];
+Parameter344 -> Block3819  [label="conv4_2.b\n(512, 1, 1)"];
+ReLU3808 -> Block3819  [label="relu4_1\n[#,*](512, 12, 12)"];
+ReLU3808 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3808 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3808 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3803 -> ReLU3808  [label="conv4_1\n[#,*](512, 12, 12)"];
+Block3803 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Block3803 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Block3803 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Parameter345 [height=0.6, label="conv4_1.W\n(512, 256, 3, 3)", shape=box, width=1];
+Parameter345 -> Block3803  [label="conv4_1.W\n(512, 256, 3, 3)"];
+Parameter346 [height=0.6, label="conv4_1.b\n(512, 1, 1)", shape=box, width=1];
+Parameter346 -> Block3803  [label="conv4_1.b\n(512, 1, 1)"];
+Pooling3792 -> Block3803  [label="pool3\n[#,*](256, 12, 12)"];
+Pooling3792 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3792 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3792 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU3790 -> Pooling3792  [label="relu3_3\n[#,*](256, 24, 24)"];
+ReLU3790 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3790 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3790 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3785 -> ReLU3790  [label="conv3_3\n[#,*](256, 24, 24)"];
+Block3785 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+Block3785 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+Block3785 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+ReLU3774 -> Block3785  [label="relu3_2\n[#,*](256, 24, 24)"];
+ReLU3774 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3774 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3774 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3769 -> ReLU3774  [label="conv3_2\n[#,*](256, 24, 24)"];
+Block3769 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+Block3769 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+Block3769 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+ReLU3758 -> Block3769  [label="relu3_1\n[#,*](256, 24, 24)"];
+ReLU3758 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3758 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3758 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3753 -> ReLU3758  [label="conv3_1\n[#,*](256, 24, 24)"];
+Block3753 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Block3753 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Block3753 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Pooling3742 -> Block3753  [label="pool2\n[#,*](128, 24, 24)"];
+Pooling3742 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3742 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3742 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU3740 -> Pooling3742  [label="relu2_2\n[#,*](128, 48, 48)"];
+ReLU3740 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3740 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3740 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3735 -> ReLU3740  [label="conv2_2\n[#,*](128, 48, 48)"];
+Block3735 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+Block3735 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+Block3735 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+ReLU3724 -> Block3735  [label="relu2_1\n[#,*](128, 48, 48)"];
+ReLU3724 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3724 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3724 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3719 -> ReLU3724  [label="conv2_1\n[#,*](128, 48, 48)"];
+Block3719 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Block3719 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Block3719 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Pooling3708 -> Block3719  [label="pool1\n[#,*](64, 48, 48)"];
+Pooling3708 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3708 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling3708 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU3706 -> Pooling3708  [label="relu1_2\n[#,*](64, 96, 96)"];
+ReLU3706 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3706 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3706 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3701 -> ReLU3706  [label="conv1_2\n[#,*](64, 96, 96)"];
+Block3701 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+Block3701 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+Block3701 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+ReLU3690 -> Block3701  [label="relu1_1\n[#,*](64, 96, 96)"];
+ReLU3690 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3690 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU3690 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block3685 -> ReLU3690  [label="conv1_1\n[#,*](64, 96, 96)"];
+Block3685 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Block3685 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Block3685 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Minus3666 -> Block3685  [label="Minus3666_Output_0\n[#,*](3, 96, 96)"];
+Minus3666 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Minus3666 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Minus3666 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Input3 [fixedsize=true, height=1, label="Input\n[#,*](3, 96, 96)", penwidth=4, shape=egg, width=1.3];
+Input3 -> Minus3666  [label="Input3\n[#,*](3, 96, 96)"];
+Constant3665 [color=white, fillcolor=white, height=0.3, label="114.0", shape=box, width=0.4];
+Constant3665 -> Minus3666  [label="Constant3665\n()"];
+Block4659 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Block4659 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Block4659 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Parameter2743 [height=0.6, label="scale\n(2,)", shape=box, width=1];
+Parameter2743 -> Block4659  [label="scale\n(2,)"];
+Parameter2744 [height=0.6, label="bias\n(2,)", shape=box, width=1];
+Parameter2744 -> Block4659  [label="bias\n(2,)"];
+Block4647 -> Block4659  [label="dense_out\n[#,*](2,)"];
+Block4647 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Block4647 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Block4647 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Parameter2529 [height=0.6, label="W\n(256, 2)", shape=box, width=1];
+Parameter2529 -> Block4647  [label="W\n(256, 2)"];
+Parameter2530 [height=0.6, label="b\n(2,)", shape=box, width=1];
+Parameter2530 -> Block4647  [label="b\n(2,)"];
+Block4631 -> Block4647  [label="Block4631_Output_0\n[#,*](256,)"];
+Block4631 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block4631 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block4631 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block4619 -> Block4631  [label="Block4619_Output_0\n[#,*](256,)"];
+Block4619 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Block4619 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Block4619 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Parameter2139 [height=0.6, label="W\n(120, 256)", shape=box, width=1];
+Parameter2139 -> Block4619  [label="W\n(120, 256)"];
+Parameter2140 [height=0.6, label="b\n(256,)", shape=box, width=1];
+Parameter2140 -> Block4619  [label="b\n(256,)"];
+Block4584 -> Block4619  [label="Block4584_Output_0\n[#,*](120,)"];
+Parameter1445 [height=0.6, label="b\n(480,)", shape=box, width=1];
+Parameter1445 -> Block4584  [label="b\n(480,)"];
+Parameter1446 [height=0.6, label="W\n(1, 480)", shape=box, width=1];
+Parameter1446 -> Block4584  [label="W\n(1, 480)"];
+Parameter1447 [height=0.6, label="H\n(120, 480)", shape=box, width=1];
+Parameter1447 -> Block4584  [label="H\n(120, 480)"];
+PastValue4259 -> Block4584  [label="PastValue4259_Output_0\n[#,*](120,)"];
+PastValue4262 -> Block4584  [label="PastValue4262_Output_0\n[#,*](120,)"];
+Block4520 -> Block4584  [label="dense_in\n[#,*](1,)"];
+PastValue4259 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4259 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4259 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+Block4584 -> PastValue4259  [label="Block4584_Output_0\n[#,*](120,)"];
+Constant1536 [color=white, fillcolor=white, height=0.3, label="[0.]", shape=box, width=0.4];
+Constant1536 -> PastValue4259  [label="Constant1536\n(1,)"];
+PastValue4262 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4262 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4262 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+Block4584 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block4584 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block4584 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block4584 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block4584 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block4584 -> PastValue4262  [label="Block4584_Output_1\n[#,*](120,)"];
+Constant1536 [color=white, fillcolor=white, height=0.3, label="[0.]", shape=box, width=0.4];
+Constant1536 -> PastValue4262  [label="Constant1536\n(1,)"];
+Block4520 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Block4520 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Block4520 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Parameter1300 [height=0.6, label="W\n(256, 4, 4, 1)", shape=box, width=1];
+Parameter1300 -> Block4520  [label="W\n(256, 4, 4, 1)"];
+Parameter1301 [height=0.6, label="b\n(1,)", shape=box, width=1];
+Parameter1301 -> Block4520  [label="b\n(1,)"];
+Block4507 -> Block4520  [label="Block4507_Output_0\n[#,*](256, 4, 4)"];
+Block4507 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block4507 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block4507 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Tanh4499 -> Block4507  [label="Tanh4499_Output_0\n[#,*](256, 5, 5)"];
+Tanh4499 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Tanh4499 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Tanh4499 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Block4495 -> Tanh4499  [label="Block4495_Output_0\n[#,*](256, 5, 5)"];
+Block4495 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Block4495 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Block4495 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Parameter1039 [height=0.6, label="scale\n(256,)", shape=box, width=1];
+Parameter1039 -> Block4495  [label="scale\n(256,)"];
+Parameter1040 [height=0.6, label="bias\n(256,)", shape=box, width=1];
+Parameter1040 -> Block4495  [label="bias\n(256,)"];
+Block4484 -> Block4495  [label="Block4484_Output_0\n[#,*](256, 5, 5)"];
+Block4484 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block4484 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block4484 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter908 [height=0.6, label="W\n(256, 128, 3, 3)", shape=box, width=1];
+Parameter908 -> Block4484  [label="W\n(256, 128, 3, 3)"];
+Parameter909 [height=0.6, label="b\n(256, 1, 1)", shape=box, width=1];
+Parameter909 -> Block4484  [label="b\n(256, 1, 1)"];
+Block4471 -> Block4484  [label="Block4471_Output_0\n[#,*](128, 5, 5)"];
+Block4471 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block4471 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block4471 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+ReLU4463 -> Block4471  [label="ReLU4463_Output_0\n[#,*](128, 6, 6)"];
+ReLU4463 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4463 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4463 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4458 -> ReLU4463  [label="Block4458_Output_0\n[#,*](128, 6, 6)"];
+Block4458 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block4458 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block4458 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter671 [height=0.6, label="W\n(128, 64, 3, 3)", shape=box, width=1];
+Parameter671 -> Block4458  [label="W\n(128, 64, 3, 3)"];
+Parameter672 [height=0.6, label="b\n(128, 1, 1)", shape=box, width=1];
+Parameter672 -> Block4458  [label="b\n(128, 1, 1)"];
+ReLU4447 -> Block4458  [label="ReLU4447_Output_0\n[#,*](64, 6, 6)"];
+ReLU4447 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4447 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4447 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4442 -> ReLU4447  [label="Block4442_Output_0\n[#,*](64, 6, 6)"];
+Block4442 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block4442 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block4442 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter555 [height=0.6, label="W\n(64, 512, 3, 3)", shape=box, width=1];
+Parameter555 -> Block4442  [label="W\n(64, 512, 3, 3)"];
+Parameter556 [height=0.6, label="b\n(64, 1, 1)", shape=box, width=1];
+Parameter556 -> Block4442  [label="b\n(64, 1, 1)"];
+Pooling4431 -> Block4442  [label="pool4\n[#,*](512, 6, 6)"];
+Pooling4431 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4431 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4431 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4429 -> Pooling4431  [label="relu4_3\n[#,*](512, 12, 12)"];
+ReLU4429 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4429 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4429 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4424 -> ReLU4429  [label="conv4_3\n[#,*](512, 12, 12)"];
+Block4424 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Block4424 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Block4424 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Parameter341 [height=0.6, label="conv4_3.W\n(512, 512, 3, 3)", shape=box, width=1];
+Parameter341 -> Block4424  [label="conv4_3.W\n(512, 512, 3, 3)"];
+Parameter342 [height=0.6, label="conv4_3.b\n(512, 1, 1)", shape=box, width=1];
+Parameter342 -> Block4424  [label="conv4_3.b\n(512, 1, 1)"];
+ReLU4413 -> Block4424  [label="relu4_2\n[#,*](512, 12, 12)"];
+ReLU4413 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4413 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4413 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4408 -> ReLU4413  [label="conv4_2\n[#,*](512, 12, 12)"];
+Block4408 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Block4408 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Block4408 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Parameter343 [height=0.6, label="conv4_2.W\n(512, 512, 3, 3)", shape=box, width=1];
+Parameter343 -> Block4408  [label="conv4_2.W\n(512, 512, 3, 3)"];
+Parameter344 [height=0.6, label="conv4_2.b\n(512, 1, 1)", shape=box, width=1];
+Parameter344 -> Block4408  [label="conv4_2.b\n(512, 1, 1)"];
+ReLU4397 -> Block4408  [label="relu4_1\n[#,*](512, 12, 12)"];
+ReLU4397 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4397 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4397 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4392 -> ReLU4397  [label="conv4_1\n[#,*](512, 12, 12)"];
+Block4392 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Block4392 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Block4392 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Parameter345 [height=0.6, label="conv4_1.W\n(512, 256, 3, 3)", shape=box, width=1];
+Parameter345 -> Block4392  [label="conv4_1.W\n(512, 256, 3, 3)"];
+Parameter346 [height=0.6, label="conv4_1.b\n(512, 1, 1)", shape=box, width=1];
+Parameter346 -> Block4392  [label="conv4_1.b\n(512, 1, 1)"];
+Pooling4381 -> Block4392  [label="pool3\n[#,*](256, 12, 12)"];
+Pooling4381 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4381 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4381 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4379 -> Pooling4381  [label="relu3_3\n[#,*](256, 24, 24)"];
+ReLU4379 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4379 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4379 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4374 -> ReLU4379  [label="conv3_3\n[#,*](256, 24, 24)"];
+Block4374 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+Block4374 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+Block4374 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+ReLU4363 -> Block4374  [label="relu3_2\n[#,*](256, 24, 24)"];
+ReLU4363 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4363 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4363 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4358 -> ReLU4363  [label="conv3_2\n[#,*](256, 24, 24)"];
+Block4358 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+Block4358 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+Block4358 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+ReLU4347 -> Block4358  [label="relu3_1\n[#,*](256, 24, 24)"];
+ReLU4347 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4347 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4347 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4342 -> ReLU4347  [label="conv3_1\n[#,*](256, 24, 24)"];
+Block4342 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Block4342 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Block4342 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Pooling4331 -> Block4342  [label="pool2\n[#,*](128, 24, 24)"];
+Pooling4331 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4331 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4331 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4329 -> Pooling4331  [label="relu2_2\n[#,*](128, 48, 48)"];
+ReLU4329 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4329 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4329 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4324 -> ReLU4329  [label="conv2_2\n[#,*](128, 48, 48)"];
+Block4324 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+Block4324 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+Block4324 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+ReLU4313 -> Block4324  [label="relu2_1\n[#,*](128, 48, 48)"];
+ReLU4313 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4313 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4313 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4308 -> ReLU4313  [label="conv2_1\n[#,*](128, 48, 48)"];
+Block4308 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Block4308 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Block4308 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Pooling4297 -> Block4308  [label="pool1\n[#,*](64, 48, 48)"];
+Pooling4297 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4297 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4297 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4295 -> Pooling4297  [label="relu1_2\n[#,*](64, 96, 96)"];
+ReLU4295 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4295 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4295 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4290 -> ReLU4295  [label="conv1_2\n[#,*](64, 96, 96)"];
+Block4290 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+Block4290 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+Block4290 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+ReLU4279 -> Block4290  [label="relu1_1\n[#,*](64, 96, 96)"];
+ReLU4279 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4279 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4279 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4274 -> ReLU4279  [label="conv1_1\n[#,*](64, 96, 96)"];
+Block4274 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Block4274 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Block4274 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Minus4255 -> Block4274  [label="Minus4255_Output_0\n[#,*](3, 96, 96)"];
+Minus4255 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Minus4255 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Minus4255 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Input4 [fixedsize=true, height=1, label="Input\n[#,*](3, 96, 96)", penwidth=4, shape=egg, width=1.3];
+Input4 -> Minus4255  [label="Input4\n[#,*](3, 96, 96)"];
+Constant4254 [color=white, fillcolor=white, height=0.3, label="114.0", shape=box, width=0.4];
+Constant4254 -> Minus4255  [label="Constant4254\n()"];
+Block5248 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Block5248 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Block5248 [fixedsize=true, height=1, label="BatchNormalization
+bn_out()", penwidth=4, width=1.3];
+Parameter2743 [height=0.6, label="scale\n(2,)", shape=box, width=1];
+Parameter2743 -> Block5248  [label="scale\n(2,)"];
+Parameter2744 [height=0.6, label="bias\n(2,)", shape=box, width=1];
+Parameter2744 -> Block5248  [label="bias\n(2,)"];
+Block5236 -> Block5248  [label="dense_out\n[#,*](2,)"];
+Block5236 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Block5236 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Block5236 [fixedsize=true, height=1, label="Dense
+dense_out()", penwidth=4, width=1.3];
+Parameter2529 [height=0.6, label="W\n(256, 2)", shape=box, width=1];
+Parameter2529 -> Block5236  [label="W\n(256, 2)"];
+Parameter2530 [height=0.6, label="b\n(2,)", shape=box, width=1];
+Parameter2530 -> Block5236  [label="b\n(2,)"];
+Block5220 -> Block5236  [label="Block5220_Output_0\n[#,*](256,)"];
+Block5220 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block5220 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block5220 [fixedsize=true, height=1, label="Dropout", penwidth=4, width=1.3];
+Block5208 -> Block5220  [label="Block5208_Output_0\n[#,*](256,)"];
+Block5208 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Block5208 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Block5208 [fixedsize=true, height=1, label="Dense", penwidth=4, width=1.3];
+Parameter2139 [height=0.6, label="W\n(120, 256)", shape=box, width=1];
+Parameter2139 -> Block5208  [label="W\n(120, 256)"];
+Parameter2140 [height=0.6, label="b\n(256,)", shape=box, width=1];
+Parameter2140 -> Block5208  [label="b\n(256,)"];
+Block5173 -> Block5208  [label="Block5173_Output_0\n[#,*](120,)"];
+Parameter1445 [height=0.6, label="b\n(480,)", shape=box, width=1];
+Parameter1445 -> Block5173  [label="b\n(480,)"];
+Parameter1446 [height=0.6, label="W\n(1, 480)", shape=box, width=1];
+Parameter1446 -> Block5173  [label="W\n(1, 480)"];
+Parameter1447 [height=0.6, label="H\n(120, 480)", shape=box, width=1];
+Parameter1447 -> Block5173  [label="H\n(120, 480)"];
+PastValue4848 -> Block5173  [label="PastValue4848_Output_0\n[#,*](120,)"];
+PastValue4851 -> Block5173  [label="PastValue4851_Output_0\n[#,*](120,)"];
+Block5109 -> Block5173  [label="dense_in\n[#,*](1,)"];
+PastValue4848 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4848 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4848 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+Block5173 -> PastValue4848  [label="Block5173_Output_0\n[#,*](120,)"];
+Constant1536 [color=white, fillcolor=white, height=0.3, label="[0.]", shape=box, width=0.4];
+Constant1536 -> PastValue4848  [label="Constant1536\n(1,)"];
+PastValue4851 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4851 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+PastValue4851 [fixedsize=false, fontsize=12, height=0.6, label="PastValue", penwidth=4, shape=box, width=0.6];
+Block5173 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block5173 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block5173 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block5173 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block5173 [fixedsize=true, height=1, label="LSTM", penwidth=4, width=1.3];
+Block5173 -> PastValue4851  [label="Block5173_Output_1\n[#,*](120,)"];
+Constant1536 [color=white, fillcolor=white, height=0.3, label="[0.]", shape=box, width=0.4];
+Constant1536 -> PastValue4851  [label="Constant1536\n(1,)"];
+Block5109 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Block5109 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Block5109 [fixedsize=true, height=1, label="Dense
+dense_in()", penwidth=4, width=1.3];
+Parameter1300 [height=0.6, label="W\n(256, 4, 4, 1)", shape=box, width=1];
+Parameter1300 -> Block5109  [label="W\n(256, 4, 4, 1)"];
+Parameter1301 [height=0.6, label="b\n(1,)", shape=box, width=1];
+Parameter1301 -> Block5109  [label="b\n(1,)"];
+Block5096 -> Block5109  [label="Block5096_Output_0\n[#,*](256, 4, 4)"];
+Block5096 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block5096 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block5096 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Tanh5088 -> Block5096  [label="Tanh5088_Output_0\n[#,*](256, 5, 5)"];
+Tanh5088 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Tanh5088 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Tanh5088 [fixedsize=true, fontsize=12, height=0.4, label="Tanh", penwidth=4, shape=ellipse, width=0.4];
+Block5084 -> Tanh5088  [label="Block5084_Output_0\n[#,*](256, 5, 5)"];
+Block5084 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Block5084 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Block5084 [fixedsize=true, height=1, label="BatchNormalization", penwidth=4, width=1.3];
+Parameter1039 [height=0.6, label="scale\n(256,)", shape=box, width=1];
+Parameter1039 -> Block5084  [label="scale\n(256,)"];
+Parameter1040 [height=0.6, label="bias\n(256,)", shape=box, width=1];
+Parameter1040 -> Block5084  [label="bias\n(256,)"];
+Block5073 -> Block5084  [label="Block5073_Output_0\n[#,*](256, 5, 5)"];
+Block5073 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block5073 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block5073 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter908 [height=0.6, label="W\n(256, 128, 3, 3)", shape=box, width=1];
+Parameter908 -> Block5073  [label="W\n(256, 128, 3, 3)"];
+Parameter909 [height=0.6, label="b\n(256, 1, 1)", shape=box, width=1];
+Parameter909 -> Block5073  [label="b\n(256, 1, 1)"];
+Block5060 -> Block5073  [label="Block5060_Output_0\n[#,*](128, 5, 5)"];
+Block5060 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block5060 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+Block5060 [fixedsize=true, height=1, label="MaxPooling", penwidth=4, width=1.3];
+ReLU5052 -> Block5060  [label="ReLU5052_Output_0\n[#,*](128, 6, 6)"];
+ReLU5052 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5052 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5052 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block5047 -> ReLU5052  [label="Block5047_Output_0\n[#,*](128, 6, 6)"];
+Block5047 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block5047 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block5047 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter671 [height=0.6, label="W\n(128, 64, 3, 3)", shape=box, width=1];
+Parameter671 -> Block5047  [label="W\n(128, 64, 3, 3)"];
+Parameter672 [height=0.6, label="b\n(128, 1, 1)", shape=box, width=1];
+Parameter672 -> Block5047  [label="b\n(128, 1, 1)"];
+ReLU5036 -> Block5047  [label="ReLU5036_Output_0\n[#,*](64, 6, 6)"];
+ReLU5036 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5036 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5036 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block5031 -> ReLU5036  [label="Block5031_Output_0\n[#,*](64, 6, 6)"];
+Block5031 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block5031 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Block5031 [fixedsize=true, height=1, label="Convolution", penwidth=4, width=1.3];
+Parameter555 [height=0.6, label="W\n(64, 512, 3, 3)", shape=box, width=1];
+Parameter555 -> Block5031  [label="W\n(64, 512, 3, 3)"];
+Parameter556 [height=0.6, label="b\n(64, 1, 1)", shape=box, width=1];
+Parameter556 -> Block5031  [label="b\n(64, 1, 1)"];
+Pooling5020 -> Block5031  [label="pool4\n[#,*](512, 6, 6)"];
+Pooling5020 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling5020 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling5020 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU5018 -> Pooling5020  [label="relu4_3\n[#,*](512, 12, 12)"];
+ReLU5018 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5018 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5018 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block5013 -> ReLU5018  [label="conv4_3\n[#,*](512, 12, 12)"];
+Block5013 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Block5013 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Block5013 [fixedsize=true, height=1, label="Convolution
+conv4_3()", penwidth=4, width=1.3];
+Parameter341 [height=0.6, label="conv4_3.W\n(512, 512, 3, 3)", shape=box, width=1];
+Parameter341 -> Block5013  [label="conv4_3.W\n(512, 512, 3, 3)"];
+Parameter342 [height=0.6, label="conv4_3.b\n(512, 1, 1)", shape=box, width=1];
+Parameter342 -> Block5013  [label="conv4_3.b\n(512, 1, 1)"];
+ReLU5002 -> Block5013  [label="relu4_2\n[#,*](512, 12, 12)"];
+ReLU5002 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5002 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU5002 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4997 -> ReLU5002  [label="conv4_2\n[#,*](512, 12, 12)"];
+Block4997 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Block4997 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Block4997 [fixedsize=true, height=1, label="Convolution
+conv4_2()", penwidth=4, width=1.3];
+Parameter343 [height=0.6, label="conv4_2.W\n(512, 512, 3, 3)", shape=box, width=1];
+Parameter343 -> Block4997  [label="conv4_2.W\n(512, 512, 3, 3)"];
+Parameter344 [height=0.6, label="conv4_2.b\n(512, 1, 1)", shape=box, width=1];
+Parameter344 -> Block4997  [label="conv4_2.b\n(512, 1, 1)"];
+ReLU4986 -> Block4997  [label="relu4_1\n[#,*](512, 12, 12)"];
+ReLU4986 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4986 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4986 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4981 -> ReLU4986  [label="conv4_1\n[#,*](512, 12, 12)"];
+Block4981 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Block4981 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Block4981 [fixedsize=true, height=1, label="Convolution
+conv4_1()", penwidth=4, width=1.3];
+Parameter345 [height=0.6, label="conv4_1.W\n(512, 256, 3, 3)", shape=box, width=1];
+Parameter345 -> Block4981  [label="conv4_1.W\n(512, 256, 3, 3)"];
+Parameter346 [height=0.6, label="conv4_1.b\n(512, 1, 1)", shape=box, width=1];
+Parameter346 -> Block4981  [label="conv4_1.b\n(512, 1, 1)"];
+Pooling4970 -> Block4981  [label="pool3\n[#,*](256, 12, 12)"];
+Pooling4970 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4970 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4970 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4968 -> Pooling4970  [label="relu3_3\n[#,*](256, 24, 24)"];
+ReLU4968 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4968 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4968 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4963 -> ReLU4968  [label="conv3_3\n[#,*](256, 24, 24)"];
+Block4963 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+Block4963 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+Block4963 [fixedsize=true, height=1, label="Convolution
+conv3_3()", penwidth=4, width=1.3];
+ReLU4952 -> Block4963  [label="relu3_2\n[#,*](256, 24, 24)"];
+ReLU4952 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4952 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4952 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4947 -> ReLU4952  [label="conv3_2\n[#,*](256, 24, 24)"];
+Block4947 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+Block4947 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+Block4947 [fixedsize=true, height=1, label="Convolution
+conv3_2()", penwidth=4, width=1.3];
+ReLU4936 -> Block4947  [label="relu3_1\n[#,*](256, 24, 24)"];
+ReLU4936 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4936 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4936 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4931 -> ReLU4936  [label="conv3_1\n[#,*](256, 24, 24)"];
+Block4931 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Block4931 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Block4931 [fixedsize=true, height=1, label="Convolution
+conv3_1()", penwidth=4, width=1.3];
+Pooling4920 -> Block4931  [label="pool2\n[#,*](128, 24, 24)"];
+Pooling4920 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4920 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4920 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4918 -> Pooling4920  [label="relu2_2\n[#,*](128, 48, 48)"];
+ReLU4918 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4918 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4918 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4913 -> ReLU4918  [label="conv2_2\n[#,*](128, 48, 48)"];
+Block4913 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+Block4913 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+Block4913 [fixedsize=true, height=1, label="Convolution
+conv2_2()", penwidth=4, width=1.3];
+ReLU4902 -> Block4913  [label="relu2_1\n[#,*](128, 48, 48)"];
+ReLU4902 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4902 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4902 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4897 -> ReLU4902  [label="conv2_1\n[#,*](128, 48, 48)"];
+Block4897 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Block4897 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Block4897 [fixedsize=true, height=1, label="Convolution
+conv2_1()", penwidth=4, width=1.3];
+Pooling4886 -> Block4897  [label="pool1\n[#,*](64, 48, 48)"];
+Pooling4886 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4886 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+Pooling4886 [fixedsize=false, fontsize=12, height=0.6, label="Pooling", penwidth=4, shape=box, width=0.6];
+ReLU4884 -> Pooling4886  [label="relu1_2\n[#,*](64, 96, 96)"];
+ReLU4884 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4884 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4884 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4879 -> ReLU4884  [label="conv1_2\n[#,*](64, 96, 96)"];
+Block4879 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+Block4879 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+Block4879 [fixedsize=true, height=1, label="Convolution
+conv1_2()", penwidth=4, width=1.3];
+ReLU4868 -> Block4879  [label="relu1_1\n[#,*](64, 96, 96)"];
+ReLU4868 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4868 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+ReLU4868 [fixedsize=true, fontsize=12, height=0.4, label="ReLU", penwidth=4, shape=ellipse, width=0.4];
+Block4863 -> ReLU4868  [label="conv1_1\n[#,*](64, 96, 96)"];
+Block4863 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Block4863 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Block4863 [fixedsize=true, height=1, label="Convolution
+conv1_1()", penwidth=4, width=1.3];
+Minus4844 -> Block4863  [label="Minus4844_Output_0\n[#,*](3, 96, 96)"];
+Minus4844 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Minus4844 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Minus4844 [fixedsize=true, fontsize=20, height=0.4, label="-", penwidth=4, shape=ellipse, width=0.4];
+Input5 [fixedsize=true, height=1, label="Input\n[#,*](3, 96, 96)", penwidth=4, shape=egg, width=1.3];
+Input5 -> Minus4844  [label="Input5\n[#,*](3, 96, 96)"];
+Constant4843 [color=white, fillcolor=white, height=0.3, label="114.0", shape=box, width=0.4];
+Constant4843 -> Minus4844  [label="Constant4843\n()"];
+}

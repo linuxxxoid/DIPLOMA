@@ -3,6 +3,8 @@ import cntk as C
 import os
 import matplotlib.pyplot as plt
 import cv2
+import time
+
 
 import helpers.cntk_helper as cntk_helper
 from sampler_ds.Class_image_sampler_ds import Class_image_sampler_ds
@@ -53,9 +55,9 @@ class Saberfighting_test_models():
 
         horiz_bad = 4
         horiz_good = 5
-        horiz_threshold = 2.7e-12# best #2.74 без аугм #2.5e-13 с аугм
+        horiz_threshold = 2.5e-12# best #2.74 без аугм #2.5e-13 с аугм
 
-         #без аугментации модельки+
+       #без аугментации модельки+
        # vertic_anchor = np.array([-0.18884414, -0.0928681 ,  0.18590991, -0.0595417 ,  0.23007217,
        # 0.15286654,  0.24210662, -0.45788047, -0.19504097, -0.11219861,
        # 0.07228126, -0.28451955,  0.04778492,  0.55277246,  0.2672805 ,
@@ -78,9 +80,13 @@ class Saberfighting_test_models():
         cnt_samples_vertic = 0
         cnt_samples_horiz = 0
 
+        time_softmax = 0
+        time_vertic = 0
+        time_horiz = 0
+
         triplet_vertic_good, triplet_vertic_bad, triplet_horiz_good, triplet_horiz_bad = [], [], [], []
 
-        path_log = os.path.join(self._path_to_save, 'log.txt')
+        path_log = os.path.join(self._path_to_save, 'newmodels_test.txt')
         with open(path_log, 'w') as f:
             with open(reader_ds._path_to_mapfile, 'r') as mapfile:
                 for item in samples:
@@ -89,8 +95,11 @@ class Saberfighting_test_models():
                     splitten = line.split('\n')[0].split('\t')
                     label_softmax, label_triplet = int(splitten[1]), int(splitten[2])
 
+                    start_time = time.time()
                     predictions = np.squeeze(model_softmax.eval(video))
-
+                    end_time = time.time()
+                    time_softmax += end_time - start_time
+                    print('time softmax: {} sec'.format(end_time - start_time))
                     softmax_pred = np.argmax(predictions)
 
                     ## ==== test =======
@@ -121,7 +130,11 @@ class Saberfighting_test_models():
                             self.softmax_error += 1
                             self.error += 1
                         else:
+                            start_time = time.time()
                             vertic_triplet_pred = np.squeeze(model_vertic.eval(video))
+                            end_time = time.time()
+                            time_vertic += end_time - start_time
+                            print('time vertic_triplet: {} sec'.format(end_time - start_time))
 
                             vertic_pred_dist = np.sum(np.square(vertic_anchor - vertic_triplet_pred))
                             
@@ -150,7 +163,12 @@ class Saberfighting_test_models():
                             self.softmax_error += 1
                             self.error += 1
                         else:
+                            start_time = time.time()
                             horiz_triplet_pred = np.squeeze(model_horiz.eval(video))
+                            end_time = time.time()
+                            time_horiz += end_time - start_time
+                            print('time horiz_triplet: {} sec'.format(end_time - start_time))
+
                             horiz_pred_dist = np.sum(np.square(horiz_anchor - horiz_triplet_pred))
 
                             pred_label = horiz_good if horiz_pred_dist < horiz_threshold else horiz_bad
@@ -179,6 +197,8 @@ class Saberfighting_test_models():
                     cnt_samples += 1
                     item.clear_data_sampler()
 
+                f.write('mean time softmax: {} sec, vertic: {} sec, horiz: {} sec'.format(time_softmax / cnt_samples, time_vertic / cnt_samples_vertic, time_horiz / cnt_samples_horiz))
+                print('mean time softmax: {} sec, vertic: {} sec, horiz: {} sec'.format(time_softmax / cnt_samples, time_vertic / cnt_samples_vertic, time_horiz / cnt_samples_horiz))
                 f.write('cnt samples: {} cnt_samples_vertic: {} cnt_samples_horiz: {}'.format(cnt_samples, cnt_samples_vertic, cnt_samples_horiz))
                 print('cnt samples: {} cnt_samples_vertic: {} cnt_samples_horiz: {}'.format(cnt_samples, cnt_samples_vertic, cnt_samples_horiz))
 
@@ -249,7 +269,7 @@ if __name__ == '__main__':
     )
     reader_ds = Class_image_reader_ds(num_classes=3, 
                                       augmentation=augmentation,
-                                      path_to_mapfile= r'D:\mine\diploma\Dataset\Siamese\map_file.txt',
+                                      path_to_mapfile= r'D:\mine\diploma\Dataset\Siamese\map_file_new.txt',
                                       percent_slice=0,
                                       step_folder=0,
                                       desired_size_ds=-1,

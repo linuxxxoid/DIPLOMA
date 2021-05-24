@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import imutils
 import os 
+import time
 
 import Estimation.Estimator as estima
 
@@ -13,7 +14,7 @@ class VideoProcessing():
 		self.type_color = type_color
 		self.output = output
 		self.input = input
-		self.estimator = estima.PoseEstimation()
+		self.estimator = estima.Pose_estimation_mode()
 
 	def video_processing(self, capture, output):
 		secs = 1
@@ -65,13 +66,16 @@ if (__name__ == '__main__'):
 				#r'E:\Project\mine\diploma\Dataset\Data\Skeleton\Horiz',
 				#r'E:\Project\mine\diploma\Dataset\Data\Skeleton\Vertic', #r'E:\Project\mine\diploma\Dataset\Data\Skeleton\Vertic\Good'
 				#r'E:\Project\mine\diploma\Dataset\Data\Skeleton\Other' #
-				r'D:\mine\diploma\Dataset\Data\Skeleton\Horiz\Bad'
+				r'D:\mine\diploma\test'#r'D:\mine\diploma\Dataset\Data\Skeleton\Horiz\Bad'
 			  ]
 
-
+	cnt = 0
+	time_estim = 0
 	for dir_input, dir_output in zip(inputs, outputs):
 		paths = os.listdir(dir_input)
 		for path in paths:
+			if cnt == 36:
+				break
 			inner_dir = path
 			path = os.path.join(dir_input, path)
 			if (os.path.isdir(path)):
@@ -91,15 +95,20 @@ if (__name__ == '__main__'):
 					capture.release()
 					cv2.destroyAllWindows()
 			else:
+				cnt += 1
 				inner_dir = path.split('\\')[-1][:-4]
 				path = os.path.join(dir_input, path)
 				inner_path = os.path.join(dir_output, inner_dir)
 				if not os.path.exists(inner_path):
 					os.mkdir(inner_path)
 				capture = cv2.VideoCapture(path)#default_input
+				start = time.time()
 				video_handler.video_processing(capture, inner_path)
+				end = time.time()
+				time_estim += end - start
 				# When everything done, release the capture
 				capture.release()
 				cv2.destroyAllWindows()
+	print('time estimator: {} sec'.format(time_estim / cnt))
 
 

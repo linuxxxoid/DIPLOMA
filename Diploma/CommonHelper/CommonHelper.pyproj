@@ -21,9 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="handler_model\Base_helper_cntk_model.py" />
-    <Compile Include="handler_model\Base_helper_model.py" />
-    <Compile Include="handler_model\__init__.py" />
+    <Compile Include="helper_model\Base_helper_cntk_model.py" />
+    <Compile Include="helper_model\Base_helper_model.py" />
+    <Compile Include="helper_model\__init__.py" />
     <Compile Include="helpers\augmentations.py" />
     <Compile Include="helpers\cntk_helper.py" />
     <Compile Include="helpers\creator_mapfile.py">
@@ -55,7 +55,7 @@
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="handler_model\" />
+    <Folder Include="helper_model\" />
     <Folder Include="helpers\" />
     <Folder Include="store_models\" />
     <Folder Include="sampler_ds\" />
