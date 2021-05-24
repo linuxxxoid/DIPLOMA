@@ -80,11 +80,11 @@ class Saberfighting_model_triplet_mode(Base_helper_cntk_model, Triplet_class):
 
     def _training(self, batch):
         self._trainer.train_minibatch({self._input_anc: batch[0], self._input_pos: batch[1], self._input_neg: batch[2]})
-        average_accuracy = self._trainer.previous_minibatch_evaluation_average
+        eval_error = self._trainer.previous_minibatch_evaluation_average
         loss_average = self._trainer.previous_minibatch_loss_average
         dict_metrics = batch[3]
         dict_metrics['train loss'] = loss_average
-        dict_metrics['train average accuracy'] = average_accuracy
+        dict_metrics['train average eval erorr'] = eval_error
         for metric in dict_metrics:
             self._progress_printer.add_value(metric, dict_metrics[metric]) #add_value_normzed_by_counter_batchs
 

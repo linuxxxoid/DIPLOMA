@@ -44,7 +44,7 @@ class Softmax_class():
         self._trainer.train_minibatch({self._model.arguments[0]: data_input, self._input_label: data_label})
         
         loss = self._trainer.previous_minibatch_loss_average
-        average_accuracy = self._trainer.previous_minibatch_evaluation_average
+        eval_error = self._trainer.previous_minibatch_evaluation_average
 
         res = np.squeeze(C.softmax(self._model(data_input)).eval())
         label_indexes = np.argmax(data_label, 1)
@@ -55,7 +55,7 @@ class Softmax_class():
 
         dict_metrics = dict()
         dict_metrics['train loss'] = loss
-        dict_metrics['train average accuracy (metric function)'] = average_accuracy
+        dict_metrics['train average eval erorr (metric function)'] = eval_error
         dict_metrics['train accuracy'] = accuracy
         return dict_metrics
 
