@@ -82,7 +82,7 @@ class Base_helper_model(ABC):
             self._progress_printer.update(size_batch)
         self._progress_printer.summarize()
         self._progress_printer.print_to_consol()
-        self._progress_printer.print_to_file()
+        self._progress_printer.print_to_file(self._counter_epochs)
         self._progress_printer.add_legend()
         self._progress_printer.switch()
 
@@ -175,7 +175,10 @@ class Progress_printer():
         print(self.__print_to())
 
     # только после summarize !
-    def print_to_file(self):
+    def print_to_file(self, is_train, counter_epochs):
+        if (is_train):
+            string = '\nEpoch: ' + str(counter_epochs) + '\n'
+            self._f_write.write(string)
         self._f_write.write(self.__print_to())
         self._f_write.flush()
 
