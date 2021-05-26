@@ -7,8 +7,8 @@ import time
 
 
 import helpers.cntk_helper as cntk_helper
-from sampler_ds.Class_image_sampler_ds import Class_image_sampler_ds
-from reader_ds.Class_image_reader_ds import Class_image_reader_ds
+from sampler_ds.Class_video_sampler_ds import Class_video_sampler_ds
+from reader_ds.Class_video_reader_ds import Class_video_reader_ds
 from helpers.augmentations import *
 
 
@@ -267,7 +267,7 @@ if __name__ == '__main__':
     [Type_augmentations_im.BRIGHTNESS_RANDOM_IM, 20],
     [Type_augmentations_im.CONTRAST_RANDOM_IM, 0.7, 1.3]
     )
-    reader_ds = Class_image_reader_ds(num_classes=3, 
+    reader_ds = Class_video_reader_ds(num_classes=3, 
                                       augmentation=augmentation,
                                       path_to_mapfile= r'D:\mine\diploma\Dataset\Siamese\map_file_new.txt',
                                       percent_slice=0,

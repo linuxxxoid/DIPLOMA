@@ -16,7 +16,7 @@ from scipy.ndimage.filters import gaussian_filter
 import helpers.cntk_helper as cntk_helper
 import helpers.padding as pad
 from helpers.augmentations import *
-from reader_ds.Class_image_reader_ds import Class_image_reader_ds
+from reader_ds.Class_video_reader_ds import Class_video_reader_ds
 from helper_model.Base_helper_cntk_model import Base_helper_cntk_model
 from store_models.Softmax_class import Softmax_class
 import Estimation.util as util

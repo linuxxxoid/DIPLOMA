@@ -9,6 +9,9 @@ import os
 import time
 import queue
 import numpy as np
+import cntk as C
+
+import Estimation.Estimator as estima
 
 from ExitWindow import *
 from Dialog import *
@@ -22,6 +25,8 @@ class PhotoBoothApp:
         self.width = 1920
         self.height = 800
         self.max_width = 640
+        self.shape_to_resize = (224, 224)
+        self.coef_normalize = 127.5
 
         self.frame = None
         self.number_frames = 30 # 30 * 1 = 30 frames in 1 sec
@@ -37,8 +42,8 @@ class PhotoBoothApp:
         self.label_window = None
         self.video_name = ""
 
-        self.path_vertical_hit = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/vertic.mp4'
-        self.path_horizontal_hit = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/horiz.mp4'
+        self.path_vertical_hit = r'D:\mine\diploma\Dataset\Etalon\vertic.mp4'
+        self.path_horizontal_hit = r'D:\mine\diploma\Dataset\Etalon\horiz.mp4'
 
 
         self.root.configure(background = 'black')
@@ -183,9 +188,9 @@ class PhotoBoothApp:
 
     def classification(self):
 
-        model_softmax = C.functions.load_model(r'D:\mine\diploma\Models\Siamese\softmax_cnn_saberfighting.model')
-        model_vertic = C.functions.load_model(r'D:\mine\diploma\Models\Siamese\vertic_triplet_saberfighting.model')
-        model_horiz = C.functions.load_model(r'D:\mine\diploma\Models\Siamese\horiz_triplet_saberfighting.model')
+        model_softmax = C.functions.load_model(r'D:\mine\diploma\Models\Siamese\with augmentation\softmax_cnn_saberfighting.model')
+        model_vertic = C.functions.load_model(r'D:\mine\diploma\Models\Siamese\with augmentation\vertic_triplet_saberfighting.model')
+        model_horiz = C.functions.load_model(r'D:\mine\diploma\Models\Siamese\with augmentation\horiz_triplet_saberfighting.model')
 
         # outputs of softmax
         not_fencing = 0
@@ -199,7 +204,7 @@ class PhotoBoothApp:
 
         horiz_bad = 4
         horiz_good = 5
-        horiz_threshold = 2.7e-12
+        horiz_threshold = 2.5e-12
 
         vertic_anchor = np.array([-0.24746865, 0.03978111, 0.13912132, -0.01408572, 0.03013963, -0.06000096,
         -0.3303202, 0.1385255, 0.04360551, -0.05080905, -0.02672888, -0.11045513,
@@ -208,22 +213,31 @@ class PhotoBoothApp:
         0.18993254, 0.02002085, -0.29981878, 0.0445806, 0.038764, -0.02385881,
         0.14823848, 0.27717984, 0.10368124, 0.13088007], dtype=np.float32)
 
+        Estimator = estima.Pose_estimation_mode()
+
         video = []
+
         for frame in self.results:
             skelet_frame = Estimator.process(frame)
-            video.append(skelet_frame)
+            im = cv2.resize(skelet_frame, self.shape_to_resize, interpolation=cv2.INTER_AREA)
+            im = np.array(im, dtype=np.float32)
+            im -= self.coef_normalize
+            im /= self.coef_normalize
+            # (channel, height, width)
+            im = np.ascontiguousarray(np.transpose(im, (2, 0, 1)))
+            video.append(im)
 
-        video_ = np.asarray(video)
+        video_ = np.stack(video, axis=1)
         softmax_pred = np.squeeze(model_softmax.eval(video_))
         softmax_label = np.argmax(softmax_pred)
         prediction = not_fencing
-        if softmax_pred == vertic_softmax: # saberfighting vertic hit
-            vertic_triplet_pred = np.squeeze(model_vertic.eval(video))
+        if softmax_label == vertic_softmax: # saberfighting vertic hit
+            vertic_triplet_pred = np.squeeze(model_vertic.eval(video_))
             vertic_pred_dist = np.sum(np.square(vertic_anchor - vertic_triplet_pred))
             prediction = vertic_good if vertic_pred_dist < vertic_threshold else vertic_bad
-        elif softmax_pred == horiz_softmax: # saberfighting horiz hit
+        elif softmax_label == horiz_softmax: # saberfighting horiz hit
 
-            horiz_triplet_pred = np.squeeze(model_horiz.eval(video))
+            horiz_triplet_pred = np.squeeze(model_horiz.eval(video_))
             horiz_pred_dist = np.sum(np.square(horiz_anchor - horiz_triplet_pred))
             prediction = horiz_good if horiz_pred_dist < horiz_threshold else horiz_bad
         else:
@@ -240,7 +254,7 @@ class PhotoBoothApp:
             label1.pack()
             self.action(self.path_vertical_hit, 'VERTICAL HIT VIDEO')
         elif (prediction == horiz_bad):
-            label1 = Label(self.label_window, anchor=S, text="You should watch the video to be better at vertical hints!", font=('Helvetica', 50),
+            label1 = Label(self.label_window, anchor=S, text="You should watch the video to be better at horizontal hints!", font=('Helvetica', 50),
                            bg='black', fg='light blue')
             label1.pack()
             self.action(self.path_horizontal_hit, 'HORIZONTAL HIT VIDEO')
@@ -255,10 +269,12 @@ class PhotoBoothApp:
 
     def reset(self):
         self.cnt_frames = 0
-        self.video_capture = cv2.VideoCapture(0)
+        #self.video_capture = cv2.VideoCapture(0)
+        self.video_capture = cv2.VideoCapture(r'D:\mine\diploma\Dataset\Data\Raw\Vertic\Bad\vertic_bad_2.mp4')
         self.results = []
 
 
 if __name__ == "__main__":
-    PhotoBoothApp(cv2.VideoCapture(0), r'/Users/linuxoid/Desktop/VUZICH/DIPLOMA/videostream')
+    #PhotoBoothApp(cv2.VideoCapture(0), r'')
+    PhotoBoothApp(cv2.VideoCapture(r'D:\mine\diploma\Dataset\Data\Raw\Vertic\Bad\vertic_bad_2.mp4'), r'')
     

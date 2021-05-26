@@ -30,27 +30,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="helpers\ds_helper.py" />
-    <Compile Include="helpers\module1.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="helpers\padding.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="helpers\resizeImages.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="reader_ds\Base_image_reader_ds.py">
+    <Compile Include="reader_ds\Base_video_reader_ds.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="store_models\Softmax_class.py" />
     <Compile Include="store_models\Triplet_class.py" />
     <Compile Include="reader_ds\Base_reader_ds.py" />
-    <Compile Include="reader_ds\Class_image_reader_ds.py" />
-    <Compile Include="reader_ds\TripletLoss_image_reader_ds.py" />
+    <Compile Include="reader_ds\Class_video_reader_ds.py" />
+    <Compile Include="reader_ds\TripletLoss_video_reader_ds.py" />
     <Compile Include="reader_ds\__init__.py" />
-    <Compile Include="sampler_ds\Base_image_sampler_ds.py" />
+    <Compile Include="sampler_ds\Base_video_sampler_ds.py" />
     <Compile Include="sampler_ds\Base_sampler_ds.py" />
-    <Compile Include="sampler_ds\Class_image_sampler_ds.py" />
+    <Compile Include="sampler_ds\Class_video_sampler_ds.py" />
     <Compile Include="sampler_ds\__init__.py" />
     <Compile Include="__init__.py" />
   </ItemGroup>

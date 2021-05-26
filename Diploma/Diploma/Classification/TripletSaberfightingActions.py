@@ -7,9 +7,9 @@ import cv2
 import random
 
 import helpers.cntk_helper as cntk_helper
-from reader_ds.TripletLoss_image_reader_ds import TripletLoss_image_reader_ds
+from reader_ds.TripletLoss_video_reader_ds import TripletLoss_video_reader_ds
 from helper_model.Base_helper_cntk_model import Base_helper_cntk_model
-from sampler_ds.Class_image_sampler_ds import Class_image_sampler_ds
+from sampler_ds.Class_video_sampler_ds import Class_video_sampler_ds
 from store_models.Triplet_class import Triplet_class
 from helpers.augmentations import *
 
@@ -45,7 +45,7 @@ class Saberfighting_model_triplet_mode(Base_helper_cntk_model, Triplet_class):
 
         Triplet_class.__init__(self, size_dim, shape_input, self._model, self._path_to_backbone, eps, threshold)
 
-        reader_ds = TripletLoss_image_reader_ds(self._model, self._input_anc, 
+        reader_ds = TripletLoss_video_reader_ds(self._model, self._input_anc, 
                                                 path_to_anchor, index_class_anchor, eps, threshold, top_k, counter_max_use_of_one_neg_sampler,
                                                 augmentation, path_to_mapfile, percent_slice, step_folder, desired_size_ds,
                                                 type_load_im, shape_to_resize, num_channels_input, coef_normalize)
@@ -164,7 +164,7 @@ class Saberfighting_model_triplet_mode(Base_helper_cntk_model, Triplet_class):
 
         non_linear_pos = -C.log(-C.element_divide(pos_dist, self._beta) + 1 + self._eps)
         non_linear_neg = -C.log(-C.element_divide(self._size_dim - neg_dist, self._beta) + 1 + self._eps)
-        non_linear_loss = non_linear_pos + non_linear_neg + self._eps
+        non_linear_loss = non_linear_pos + non_linear_neg# + self._eps
         return non_linear_loss
         #loss = C.clip(basic_loss, 0.0, 1000000000) # эквивалентно операции: min( max(x, min_val=0.0), max_val=1000000000 )
         ##losses = C.relu(basic_loss)
@@ -337,23 +337,23 @@ if (__name__ == '__main__'):
                                     num_channels_input=3,
                                     coef_normalize=127.5,
                                     name_model='horiz_triplet_saberfighting',
-                                    path_to_save_model=r'D:\mine\diploma\Models\Siamese\with augmentation',#r'D:\mine\diploma\Models\Triplet_head\Horiz_triplet\new_loss_train',#r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\f\tt',
+                                    path_to_save_model=r'D:\mine\diploma\Models\Siamese\with augmentation_dim',#r'D:\mine\diploma\Models\Triplet_head\Horiz_triplet\new_loss_train',#r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\f\tt',
                                     path_to_backbone=r'D:\mine\diploma\Models\VGG16_ImageNet_Caffe.model',
                                     num_epochs=1010,
                                     size_batch_train=12,
                                     size_batch_test=1,
                                     testing_in_time_train=True,
                                     save_frequency=10, # каждые save_frequency эпох сохраняем модель
-                                    path_to_trained_model=r'D:\mine\diploma\Models\Siamese\with augmentation\600_horiz_triplet_saberfighting.model',#r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\f\tt\460_vertic_triplet_saberfighting.model', 
-                                    path_to_save_test=r'D:\mine\diploma\Models\Siamese\with augmentation',#r'D:\mine\diploma\Models\Triplet_head\Horiz_triplet\new_loss_test',#r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\f\t',
+                                    path_to_trained_model=r'',#r'D:\mine\diploma\Models\Siamese\with augmentation\600_horiz_triplet_saberfighting.model',#r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\f\tt\460_vertic_triplet_saberfighting.model', 
+                                    path_to_save_test=r'D:\mine\diploma\Models\Siamese\with augmentation_dim',#r'D:\mine\diploma\Models\Triplet_head\Horiz_triplet\new_loss_test',#r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\f\t',
                                     lr= 0.01,
                                     momentums=[0]*20 + [0.9200444146293233]*20 + [0.9591894571091382],#0.9,
                                     booster=C.adam)
     
-    #test.init()
-    #test.train()
+    test.init()
+    test.train()
     #test.convert_model_for_cpp(r'D:\mine\diploma\Models\Triplet_head\Vertic_triplet\VerticReady\horiz_triplet_saberfighting_anc.model')
-    test.convert_model_for_cpp()
+    #test.convert_model_for_cpp()
 
     print('Done')
 

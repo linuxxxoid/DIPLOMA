@@ -6,7 +6,7 @@ import sys
 import cntk as C
 
 import helpers.cntk_helper as cntk_helper
-from reader_ds.TripletLoss_image_reader_ds import TripletLoss_image_reader_ds
+from reader_ds.TripletLoss_video_reader_ds import TripletLoss_video_reader_ds
 
 
 class Triplet_class():

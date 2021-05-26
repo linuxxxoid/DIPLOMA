@@ -9,7 +9,7 @@ import cntk as C
 
 import helpers.cntk_helper as cntk_helper
 from helpers.augmentations import *
-from reader_ds.Class_image_reader_ds import Class_image_reader_ds
+from reader_ds.Class_video_reader_ds import Class_video_reader_ds
 from helper_model.Base_helper_cntk_model import Base_helper_cntk_model
 from store_models.Softmax_class import Softmax_class
 
@@ -147,7 +147,7 @@ if __name__ == '__main__':
         [Type_augmentations_im.CONTRAST_RANDOM_IM, 0.7, 1.3]
         )
 
-    reader_ds = Class_image_reader_ds(num_classes=3, 
+    reader_ds = Class_video_reader_ds(num_classes=3, 
                                       augmentation=augmentation,
                                       path_to_mapfile= r'D:\mine\diploma\Dataset\Softmax\map_file_new_concept.txt',
                                       percent_slice=0.1,

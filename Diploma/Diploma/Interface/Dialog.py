@@ -43,17 +43,17 @@ class Dialog_window: #dialog
   def cancel(self):
     self.top.destroy()
 
-  def vertical_hit(self):
+  #def vertical_hit(self):
 
-    video_vertic_name = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/vertic.mp4'
+  #  video_vertic_name = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/vertic.mp4'
 
-    video_vertic = imageio.get_reader(video_vertic_name)
+  #  video_vertic = imageio.get_reader(video_vertic_name)
 
-    my_label = tk.Label(self.root)
-    my_label.pack(side="top", fill="both", expand=True)
-    thread = threading.Thread(target=self.stream, args=(my_label, video_vertic))
-    thread.daemon = 1
-    thread.start()
+  #  my_label = tk.Label(self.root)
+  #  my_label.pack(side="top", fill="both", expand=True)
+  #  thread = threading.Thread(target=self.stream, args=(my_label, video_vertic))
+  #  thread.daemon = 1
+  #  thread.start()
 
 
   def stream(self, label, video):
@@ -64,28 +64,15 @@ class Dialog_window: #dialog
         label.image = frame_image
 
 
+  #def horizontal_hit(self):
 
-  def horizontal_hit(self):
-
-    video_horiz_name = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/diag horiz.mp4'
-    video_horiz = imageio.get_reader(video_horiz_name)
-    my_label = tk.Label(self.root)
-    my_label.pack(side="top", fill="both", expand=True)
-    thread = threading.Thread(target=self.stream, args=(my_label, video_horiz))
-    thread.daemon = 2
-    thread.start()
-
-
-
-  def horizontal_hit(self):
-
-    video_horiz_name = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/diag horiz.mp4'
-    video_horiz = imageio.get_reader(video_horiz_name)
-    my_label = tk.Label(self.root)
-    my_label.pack(side="top", fill="both", expand=True)
-    thread = threading.Thread(target=self.stream, args=(my_label, video_horiz))
-    thread.daemon = 2
-    thread.start()
+  #  video_horiz_name = '/Users/linuxoid/Desktop/VUZICH/DIPLOMA/etalon videos/diag horiz.mp4'
+  #  video_horiz = imageio.get_reader(video_horiz_name)
+  #  my_label = tk.Label(self.root)
+  #  my_label.pack(side="top", fill="both", expand=True)
+  #  thread = threading.Thread(target=self.stream, args=(my_label, video_horiz))
+  #  thread.daemon = 2
+  #  thread.start()
 
 
 # тестовая команда
