@@ -40,6 +40,7 @@ class PhotoBoothApp:
 
         self.video_window = None
         self.label_window = None
+        self.etalon_video_window = None
         self.video_name = ""
 
         self.path_vertical_hit = r'D:\mine\diploma\Dataset\Etalon\vertic.mp4'
@@ -100,13 +101,13 @@ class PhotoBoothApp:
 
 
     def action(self, path_to_video, name_action):
-        self.video_window = Toplevel()
-        self.video_window.title(name_action)
+        self.etalon_video_window = Toplevel()
+        self.etalon_video_window.title(name_action)
         # self.video_window.geometry('720x720')
         # self.video_window.configure(background = 'black')
         self.video_name = path_to_video
-        self.start_etalon_video(self.video_window)
-        self.video_window.protocol('WM_DELETE_WINDOW', self.exit_video_window)
+        self.start_etalon_video(self.etalon_video_window)
+        self.etalon_video_window.protocol('WM_DELETE_WINDOW', self.exit_video_window)
 
 
     def start_etalon_video(self, window):
@@ -249,12 +250,12 @@ class PhotoBoothApp:
                            bg='black', fg='light blue')
             label1.pack()
         elif (prediction == vertic_bad):
-            label1 = Label(self.label_window, anchor=S, text="You should watch the video to be better at vertical hints!", font=('Helvetica', 50),
+            label1 = Label(self.label_window, anchor=S, text="Rewatch vertical hints video!", font=('Helvetica', 50),
                            bg='black', fg='light blue')
             label1.pack()
             self.action(self.path_vertical_hit, 'VERTICAL HIT VIDEO')
         elif (prediction == horiz_bad):
-            label1 = Label(self.label_window, anchor=S, text="You should watch the video to be better at horizontal hints!", font=('Helvetica', 50),
+            label1 = Label(self.label_window, anchor=S, text="Rewatch horizontal hints video!", font=('Helvetica', 50),
                            bg='black', fg='light blue')
             label1.pack()
             self.action(self.path_horizontal_hit, 'HORIZONTAL HIT VIDEO')
@@ -270,11 +271,11 @@ class PhotoBoothApp:
     def reset(self):
         self.cnt_frames = 0
         #self.video_capture = cv2.VideoCapture(0)
-        self.video_capture = cv2.VideoCapture(r'D:\mine\diploma\Dataset\Data\Raw\Vertic\Bad\vertic_bad_2.mp4')
+        self.video_capture = cv2.VideoCapture(r'D:\mine\diploma\Dataset\Data\Raw\Horiz\Bad\horiz_bad_34.mp4')
         self.results = []
 
 
 if __name__ == "__main__":
     #PhotoBoothApp(cv2.VideoCapture(0), r'')
-    PhotoBoothApp(cv2.VideoCapture(r'D:\mine\diploma\Dataset\Data\Raw\Vertic\Bad\vertic_bad_2.mp4'), r'')
+    PhotoBoothApp(cv2.VideoCapture(r'D:\mine\diploma\Dataset\Data\Raw\Horiz\Good\horiz_good_17.mp4'), r'')
     
